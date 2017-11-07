@@ -59,7 +59,7 @@
         android:id="@+id/gridViewBlank2"
         android:layout_width="0dp"
         android:layout_height="190dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="70dp"
         android:numColumns="7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
