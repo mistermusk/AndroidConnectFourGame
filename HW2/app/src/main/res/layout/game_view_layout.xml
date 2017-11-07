@@ -10,17 +10,17 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="18dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/gridView2"
-        app:layout_constraintStart_toStartOf="@+id/gridView2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <GridView
         android:id="@+id/gridView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="249dp"
+        android:layout_marginBottom="11dp"
         android:columnWidth="90dp"
         android:gravity="center"
         android:horizontalSpacing="0dp"
@@ -30,29 +30,28 @@
         android:verticalSpacing="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridView2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="24dp"
         android:text="Save"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/gridView2"
-        app:layout_constraintEnd_toEndOf="@+id/gridView2" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <GridView
-        android:id="@+id/gridView2"
+        android:id="@+id/gridViewBlank"
         android:layout_width="0dp"
-        android:layout_height="188dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="83dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="8dp"
+        android:numColumns="7"
+        app:layout_constraintBottom_toTopOf="@+id/gridView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/save" />
 
 </android.support.constraint.ConstraintLayout>
