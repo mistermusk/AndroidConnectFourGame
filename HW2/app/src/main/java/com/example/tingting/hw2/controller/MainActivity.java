@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements  MainViewFragment
         {
             // display is small
             Intent intent = new Intent(this, GameActivity.class);
-            intent.putExtra("isStart", true);
+            intent.putExtra("isStart", isStart);
             startActivity(intent);
         }
         else

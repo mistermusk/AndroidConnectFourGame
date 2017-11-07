@@ -14,8 +14,8 @@ import java.util.Observable;
 
 
 public class Board extends Observable{
-    private int numCols;
-    private int numRows;
+    private int numCols = 7;
+    private int numRows = 6;
     public boolean hasWinner;
 
     // make game contiguous, set cells as public static
