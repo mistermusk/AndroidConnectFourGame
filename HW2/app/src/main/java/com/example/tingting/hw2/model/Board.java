@@ -14,8 +14,8 @@ import java.util.Observable;
 
 
 public class Board extends Observable{
-    private int numCols = 7;
-    private int numRows = 6;
+    private int numCols;
+    private int numRows;
     public boolean hasWinner;
 
     // make game contiguous, set cells as public static
@@ -57,7 +57,7 @@ public class Board extends Observable{
     {
         for (int row = numRows - 1; row >= 0; row--)
         {
-            if (cells[col][row].empty)
+            if (cells[row][col].empty)
             {
                 return row;
             }
@@ -66,9 +66,9 @@ public class Board extends Observable{
     }
 
     // set cell to be occupied when player puts a disk into it
-    public void occupyCell(int col, int row)
+    public void occupyCell(int row, int col)
     {
-        cells[col][row].setPlayer(turn);
+        cells[row][col].setPlayer(turn);
     }
 
     // change the turn of the player
@@ -84,7 +84,7 @@ public class Board extends Observable{
     }
 
     // check the contiguous of the current plays' disks
-    private boolean isContiguous(Turn player, int dirX, int dirY, int col, int row, int count)
+    private boolean isContiguous(Turn player, int dirX, int dirY, int row, int col, int count)
     {
         if (count >= 4)
         {
@@ -94,28 +94,28 @@ public class Board extends Observable{
         {
             return false;
         }
-        Cell cell = cells[col][row];
+        Cell cell = cells[row][col];
         if (cell.player == player)
         {
-            return isContiguous(player, dirX, dirY, col + dirX, row + dirY, count + 1);
+            return isContiguous(player, dirX, dirY, row + dirX, col + dirY, count + 1);
         }
         else
         {
-            return isContiguous(player, dirX, dirY, col + dirX, row + dirY, 0);
+            return isContiguous(player, dirX, dirY, row + dirX, col + dirY, 0);
         }
     }
 
 
     // check for the win for players
-    public boolean checkWin(int r, int c) {
-        for (int col = 0; col < numCols; col++) {
-            if (isContiguous(turn, 0, 1, col, 0, 0) || isContiguous(turn, 1, 1, col, 0, 0) || isContiguous(turn, -1, 1, col, 0, 0)) {
+    public boolean checkWin() {
+        for (int row = 0; row < numRows; row++) {
+            if (isContiguous(turn, 0, 1, row, 0, 0) || isContiguous(turn, 1, 1, row, 0, 0) || isContiguous(turn, -1, 1, row, 0, 0)) {
                 hasWinner = true;
                 return true;
             }
         }
-        for (int row = 0; row < numRows; row++) {
-            if (isContiguous(turn, 1, 0, 0, row, 0) || isContiguous(turn, 1, 1, 0, row, 0) || isContiguous(turn, -1, 1, numCols - 1, row, 0)) {
+        for (int col = 0; col < numCols; col++) {
+            if (isContiguous(turn, 1, 0, 0, col, 0) || isContiguous(turn, 1, 1, 0, col, 0) || isContiguous(turn, -1, 1, numCols - 1, col, 0)) {
                 hasWinner = true;
                 return true;
             }

@@ -46,6 +46,23 @@ public class ImageAdapter extends BaseAdapter {
     }
 
 
+    public void changeImage(int row, int column, int turn)
+    {
+        int pos = (41 - ((row * 7) + (6 - column)));
+        // if it is player one
+        if(turn == 1)
+        {
+            mThumbIds[pos] = R.drawable.red;
+        }
+
+        // player two
+        else
+        {
+            mThumbIds[pos] = R.drawable.blue;
+        }
+    }
+
+
     private Integer[] setImage()
     {
         Integer image[] = new Integer[42];
@@ -58,5 +75,5 @@ public class ImageAdapter extends BaseAdapter {
 
 
     // references to our images
-    private Integer[] mThumbIds = setImage();
+    public Integer[] mThumbIds = setImage();
 }

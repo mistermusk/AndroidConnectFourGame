@@ -13,19 +13,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tingting.hw2.R;
+import com.example.tingting.hw2.model.Board;
 
 import static android.content.ContentValues.TAG;
+import static com.example.tingting.hw2.model.Board.Turn.FIRST;
 
 
 public class GameViewFragment extends Fragment {
     GridView gridview;
     GridView gridviewBlank;
-    GridView gridviewBlank2;
     TextView tv;
+    private Board board;
 
     // dummy string array to create grid view on touch
     static String[] numbers;
@@ -38,20 +41,24 @@ public class GameViewFragment extends Fragment {
         tv = view.findViewById(R.id.textView);
         gridview = view.findViewById(R.id.gridView);
         gridviewBlank = view.findViewById(R.id.gridViewBlank);
-        gridviewBlank2 = view.findViewById(R.id.gridViewBlank2);
         numbers = createNumGrid();
+        board = new Board(7,6);
+        board.reset();
+        // clean the board or not
+
 
         // main game board
+        final ImageAdapter imageAdapter = new ImageAdapter(getActivity());
         gridview.setAdapter(new ImageAdapter(getActivity()));
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                View p = (View)v.getParent();
-                p.performClick();
-                Toast.makeText(getActivity().getApplicationContext(), "column" + position%7,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+//        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> parent, View v,
+//                                    int position, long id) {
+//                View p = (View)v.getParent();
+//                p.performClick();
+//                Toast.makeText(getActivity().getApplicationContext(), "column " + position%7,
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_list_item_1, numbers);
@@ -61,18 +68,39 @@ public class GameViewFragment extends Fragment {
         gridviewBlank.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        "column" + position%7, Toast.LENGTH_SHORT).show();
-            }
-        });
+                int column = position % 7;
+//                Toast.makeText(getActivity().getApplicationContext(),
+//                        "column " + column, Toast.LENGTH_SHORT).show();
 
-        // lower blank grid
-        gridviewBlank2.setAdapter(adapter);
-        gridviewBlank2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        "column" + position%7, Toast.LENGTH_SHORT).show();
+
+
+                // check if play is legal
+                int row = board.lastAvailableRow(column);
+                // invalid move
+                if( row == -1)
+                {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "Invalid move!", Toast.LENGTH_SHORT).show();
+                }
+                // valid move
+                else
+                {
+                    board.occupyCell(row, column);
+                    int turn = getTurn();
+                    // change image
+                    imageAdapter.changeImage(5-row, column, turn);
+                    gridview.setAdapter(imageAdapter);
+                }
+
+                // check win
+                if (board.checkWin())
+                {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "player" + getTurn() + "wins!", Toast.LENGTH_SHORT).show();
+                }
+
+                // if no winner, alter play's turn
+                board.alterTurn();
             }
         });
         return view;
@@ -84,24 +112,37 @@ public class GameViewFragment extends Fragment {
         if(isStart == true)
         {
             // reset the game
-            tv.setText("Start a new game");
+            tv.setText("Welcome!");
         }
         else
         {
             // resume
-            tv.setText("Resume the previous game");
+            tv.setText("Welcome back!");
             // get the cell[][] and current player info from text file
 
         }
     }
 
+
+    // get current play's trun, return int
+    public int getTurn()
+    {
+        if(board.turn == FIRST)
+        {
+            return 1;
+        }
+        else
+        {
+            return 2;
+        }
+    }
     // dummy grid populated by empty string
     public String[] createNumGrid()
     {
-        String[] nums = new String[58];
-        for (int i = 0; i < 58; ++i)
+        String[] nums = new String[200];
+        for (int i = 0; i < 200; ++i)
         {
-            nums[i] = "1";
+            nums[i] = "";
         }
         return nums;
     }
