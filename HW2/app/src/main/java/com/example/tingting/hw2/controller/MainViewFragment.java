@@ -1,5 +1,8 @@
+/**************************************
+ * fragment for main view. It will give info on
+ * whether the user wants to resume or restart the game
+ */
 package com.example.tingting.hw2.controller;
-
 
 import android.app.Activity;
 import android.app.Fragment;

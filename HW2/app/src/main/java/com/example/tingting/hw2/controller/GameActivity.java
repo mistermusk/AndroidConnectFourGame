@@ -1,3 +1,6 @@
+/*********************************************
+ * Gmae ac
+ */
 package com.example.tingting.hw2.controller;
 
 import android.content.Intent;
@@ -13,7 +16,6 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         boolean isStart;
-        Intent intent = getIntent();
         isStart = getIntent().getExtras().getBoolean("isStart");
         GameViewFragment gameViewFragment = (GameViewFragment)getFragmentManager().findFragmentById(R.id.game_frag);
         gameViewFragment.updateInfo(isStart);

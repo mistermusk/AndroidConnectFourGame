@@ -10,16 +10,17 @@
 
 package com.example.tingting.hw2.model;
 
+import java.io.Serializable;
 import java.util.Observable;
 
 
-public class Board extends Observable{
+public class Board extends Observable implements Serializable {
     private int numCols;
     private int numRows;
     public boolean hasWinner;
 
     // make game contiguous, set cells as public static
-    public static Cell[][] cells;
+    public Cell[][] cells;
 
     public enum Turn
     {
@@ -27,10 +28,10 @@ public class Board extends Observable{
     }
 
     // make turn contiguous
-    public static Turn turn;
+    public Turn turn;
 
     // constructor
-    public Board(int cols, int rows)
+    public Board(int rows, int cols)
     {
         numCols = cols;
         numRows = rows;
@@ -71,6 +72,21 @@ public class Board extends Observable{
         cells[row][col].setPlayer(turn);
     }
 
+    // check if the board is full or not
+    public boolean checkFull()
+    {
+        for(int i = 0; i < numRows; ++i)
+        {
+            for(int j = 0; j < numCols; ++j)
+            {
+                if(cells[i][j].empty)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     // change the turn of the player
     public void alterTurn() {
         if (turn == Turn.FIRST)
@@ -122,6 +138,7 @@ public class Board extends Observable{
         }
         return false;
     }
+
 
 
 }

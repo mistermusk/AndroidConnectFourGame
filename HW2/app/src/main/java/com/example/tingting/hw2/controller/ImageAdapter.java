@@ -1,3 +1,6 @@
+/******************************************
+ * Custom adapter for image grid view
+ ***********************************************/
 package com.example.tingting.hw2.controller;
 
 import android.content.Context;

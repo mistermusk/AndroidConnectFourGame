@@ -30,8 +30,5 @@ public class MainActivity extends AppCompatActivity implements  MainViewFragment
             // display is big, display both
             gameViewFragment.updateInfo(isStart);
         }
-
-
-
     }
 }

@@ -9,8 +9,8 @@
     <GridView
         android:id="@+id/gridView"
         android:layout_width="0dp"
-        android:layout_height="712dp"
-        android:layout_marginTop="341dp"
+        android:layout_height="351dp"
+        android:layout_marginTop="328dp"
         android:columnWidth="90dp"
         android:gravity="center"
         android:horizontalSpacing="0dp"
@@ -19,6 +19,7 @@
         android:stretchMode="columnWidth"
         android:verticalSpacing="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,16 +32,49 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
         android:layout_marginTop="18dp"
         android:text=""
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="97dp" />
+
+    <Button
+        android:id="@+id/p1"
+        android:textColor="#FFFFFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/player_1"
+        android:background="#FF0000"
+        style="?android:attr/borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/p2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:background="#FFFFFF"
+        style="?android:attr/borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/d1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#FFFFFF"
+        android:text="@string/player_2"
+        android:background="#000080"
+        style="?android:attr/borderlessButtonStyle"/>
+
+</LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>
