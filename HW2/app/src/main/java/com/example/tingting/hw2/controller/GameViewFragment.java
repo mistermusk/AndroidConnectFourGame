@@ -27,6 +27,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import com.example.tingting.hw2.R;
 import com.example.tingting.hw2.model.Board;
+
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 
@@ -36,6 +38,7 @@ public class GameViewFragment extends Fragment {
     TextView tv;
     private Board board;
     boolean start;
+    String fileName = "f4.txt";
 
     // dummy string array to create grid view on touch
     static String[] numbers;
@@ -57,12 +60,7 @@ public class GameViewFragment extends Fragment {
         gridviewBlank = view.findViewById(R.id.gridViewBlank);
         numbers = createNumGrid();
 
-        if(start == false)
-        {
-            // reload the saved state automatically
-            updateInfo(false);
-        }
-        
+        updateInfo(false);
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
@@ -122,7 +120,7 @@ public class GameViewFragment extends Fragment {
 
 
                 // save current state to file
-                saveText(row + "", column + "");
+                saveText(Integer.toString(row), Integer.toString(column));
             }
         });
         return view;
@@ -162,9 +160,11 @@ public class GameViewFragment extends Fragment {
             gridview.setAdapter(imageAdapter);
 
         } else {
-            File dir = getActivity().getFilesDir();
-            File file = new File(dir, "file.txt");
-            file.delete();
+//            File dir = getActivity().getFilesDir();
+//            File file = new File(dir, fileName);
+//            Log.i("TAG", fileName);
+//            file.delete();
+            getActivity().getApplication().deleteFile(fileName);
             imageAdapter = new ImageAdapter(getActivity());
             gridview.setAdapter(imageAdapter);
 
@@ -184,11 +184,13 @@ public class GameViewFragment extends Fragment {
     public void saveText(String row, String column) {
         try {
             // open output for writing
-            OutputStreamWriter out = new OutputStreamWriter(getActivity().openFileOutput("file.txt", Context.MODE_APPEND));
-
+            OutputStreamWriter out = new OutputStreamWriter(getActivity().openFileOutput(fileName, Context.MODE_APPEND));
+//            Log.i("TAG", fileName);
             out.write(row);
+//            Log.i("TAG", row);
             out.write('\n');
             out.write(column);
+//            Log.i("TAG", column);
             out.write('\n');
             out.close();
         } catch (java.io.IOException e) {
@@ -203,8 +205,8 @@ public class GameViewFragment extends Fragment {
 
         // open the file for reading we have to surround it with a try
         try {
-            InputStream inStream = getActivity().openFileInput("file.txt");//open the text file for reading
-
+            InputStream inStream = getActivity().openFileInput(fileName);//open the text file for reading
+//            Log.i("TAG", fileName);
             // if file the available for reading
             if (inStream != null) {
 
@@ -214,7 +216,7 @@ public class GameViewFragment extends Fragment {
                 String line = "";
                 int count = 0;
                 while ((line = buffReader.readLine()) != null) {
-                    Log.i("TAG", line);
+//                    Log.i("TAG", line);
                     //buffered reader reads only one line at a time, hence we give a while loop to read all till the text is null
                     int dataInt = Integer.parseInt(line);
                     if (count % 2 == 0) {
