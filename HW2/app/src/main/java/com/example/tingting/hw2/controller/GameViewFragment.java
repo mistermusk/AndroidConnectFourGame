@@ -10,6 +10,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class GameViewFragment extends Fragment {
     GridView gridviewBlank;
     TextView tv;
     private Board board;
+    boolean start;
 
     // dummy string array to create grid view on touch
     static String[] numbers;
@@ -55,8 +57,13 @@ public class GameViewFragment extends Fragment {
         gridviewBlank = view.findViewById(R.id.gridViewBlank);
         numbers = createNumGrid();
 
-        // reload the saved state automatically
-        updateInfo(false);
+        if(start == false)
+        {
+            // reload the saved state automatically
+            updateInfo(false);
+        }
+        
+
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_list_item_1, numbers);
@@ -89,7 +96,7 @@ public class GameViewFragment extends Fragment {
                 }
                 // valid move
                 else {
-                    board.occupyCell(row, column);
+                    board.occupyCell(row, column, turn);
                     // change image
                     imageAdapter.changeImage(5 - row, column, turn);
                     gridview.setAdapter(imageAdapter);
@@ -123,6 +130,7 @@ public class GameViewFragment extends Fragment {
 
     // update text view box and the model value
     public void updateInfo(boolean isStart) {
+        start = isStart;
 
         board = new Board(ROW, COL);
         // get the data for row and column
@@ -148,7 +156,7 @@ public class GameViewFragment extends Fragment {
                 }
                 int row = dataRow.get(i);
                 int col = dataColumn.get(i);
-                board.occupyCell(row, col);
+                board.occupyCell(row, col, turn);
                 imageAdapter.changeImage(5 - row, col, turn);
             }
             gridview.setAdapter(imageAdapter);
@@ -206,6 +214,7 @@ public class GameViewFragment extends Fragment {
                 String line = "";
                 int count = 0;
                 while ((line = buffReader.readLine()) != null) {
+                    Log.i("TAG", line);
                     //buffered reader reads only one line at a time, hence we give a while loop to read all till the text is null
                     int dataInt = Integer.parseInt(line);
                     if (count % 2 == 0) {

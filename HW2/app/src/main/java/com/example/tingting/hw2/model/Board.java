@@ -62,7 +62,7 @@ public class Board extends Observable{
     }
 
     // set cell to be occupied when player puts a disk into it
-    public void occupyCell(int row, int col)
+    public void occupyCell(int row, int col, int turn)
     {
         cells[row][col].setPlayer(turn);
     }
