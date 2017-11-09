@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.Observable;
 
 
-public class Board extends Observable implements Serializable {
+public class Board extends Observable{
     private int numCols;
     private int numRows;
     public boolean hasWinner;
@@ -22,13 +22,8 @@ public class Board extends Observable implements Serializable {
     // make game contiguous, set cells as public static
     public Cell[][] cells;
 
-    public enum Turn
-    {
-        FIRST, SECOND
-    }
+    public int turn;
 
-    // make turn contiguous
-    public Turn turn;
 
     // constructor
     public Board(int rows, int cols)
@@ -43,7 +38,7 @@ public class Board extends Observable implements Serializable {
     public void reset()
     {
         hasWinner = false;
-        turn = Turn.FIRST;
+        turn = 1;
         for (int row = 0; row < numRows; ++row)
         {
             for (int col = 0; col < numCols; ++col)
@@ -89,18 +84,18 @@ public class Board extends Observable implements Serializable {
     }
     // change the turn of the player
     public void alterTurn() {
-        if (turn == Turn.FIRST)
+        if (turn == 1)
         {
-            turn = Turn.SECOND;
+            turn = 2;
         }
         else
         {
-            turn = Turn.FIRST;
+            turn = 1;
         }
     }
 
     // check the contiguous of the current plays' disks
-    private boolean isContiguous(Turn player, int dirX, int dirY, int row, int col, int count)
+    private boolean isContiguous(int player, int dirX, int dirY, int row, int col, int count)
     {
         if (count >= 4)
         {

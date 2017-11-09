@@ -1,9 +1,11 @@
+/****************************************
+ * Main activity. It controls both main and view fragments.
+ ****************************************/
 package com.example.tingting.hw2.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import com.example.tingting.hw2.R;
 
 public class MainActivity extends AppCompatActivity implements  MainViewFragment.OnMainButtonClickListener{

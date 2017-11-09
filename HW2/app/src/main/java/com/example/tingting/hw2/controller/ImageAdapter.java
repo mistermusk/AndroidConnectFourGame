@@ -49,6 +49,7 @@ public class ImageAdapter extends BaseAdapter {
     }
 
 
+    // change image of the location current player just played
     public void changeImage(int row, int column, int turn)
     {
         int pos = (41 - ((row * 7) + (6 - column)));
@@ -65,7 +66,7 @@ public class ImageAdapter extends BaseAdapter {
         }
     }
 
-
+    // set image of the grid
     private Integer[] setImage()
     {
         Integer image[] = new Integer[42];
