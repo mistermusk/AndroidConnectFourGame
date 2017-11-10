@@ -38,7 +38,7 @@ public class GameViewFragment extends Fragment {
     TextView tv;
     private Board board;
     boolean start;
-    String fileName = "f4.txt";
+    String fileName = "mySave1.txt";
 
     // dummy string array to create grid view on touch
     static String[] numbers;
@@ -61,8 +61,6 @@ public class GameViewFragment extends Fragment {
         numbers = createNumGrid();
 
         updateInfo(false);
-
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_list_item_1, numbers);
 
@@ -102,6 +100,7 @@ public class GameViewFragment extends Fragment {
 
                 // check win
                 if (board.checkWin()) {
+                    board.hasWinner = true;
                     alertDialog.setTitle("Result");
                     alertDialog.setMessage("Player " + turn + " wins!");
                     alertDialog.show();
@@ -128,6 +127,7 @@ public class GameViewFragment extends Fragment {
 
     // update text view box and the model value
     public void updateInfo(boolean isStart) {
+
         start = isStart;
 
         board = new Board(ROW, COL);
@@ -136,6 +136,7 @@ public class GameViewFragment extends Fragment {
         int size = dataRow.size();
 
         if (isStart == false && size != 0) {
+
             imageAdapter = new ImageAdapter(getActivity());
             // if number of disks is even, it is player 1's turn
             if (size % 2 == 0) {
