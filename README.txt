@@ -7,5 +7,3 @@
 # If user decides to click resume right after win/tie, the board will remain the same. It is because we assume user will not press ressume button, 
 # according to Piazza post: https://piazza.com/class/j7zn8zecw893w1?cid=132
 # #################################################################
-# Thank you for grading my HW!
-###############################################################
